@@ -1,0 +1,49 @@
+<div class="container row">
+    <div class="col-md-5">
+        <form #myForm="ngForm" onsubmit="event.preventDefault();">
+
+            <!-- <h4>Exercise-3</h4> -->
+            <h2>Restaurant Entry</h2>
+            <hr>
+            
+            <label>Item Name:</label><br>
+            <input id="itemName" pattern="[A-Za-z0-9]+" type="text" class="form form-control formControl" [(ngModel)]="itemName" placeholder="Item Name"  name="nameField" required><br>
+            <p id="nameInputError" style="display: none;"> Please enter valid input name !</p>
+            
+            <label>Image Url:</label><br>
+            <input id="imgUrl" type="text" onkeydown="if(['Space'].includes(arguments[0].code)){return false;}" class="form form-control formControl" placeholder="Image Url" [(ngModel)]="imgUrl"  name="urlField" required><br><br>
+            <!-- <p>https://cdn.iconscout.com/icon/free/png-256/gujrati-food-1851596-1569321.png</p> -->
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="inputGroupSelect01" name="categoryField">Category:</label>
+                </div>
+            <select class="custom-select" id="inputFieldStatus" (change)="onSelectedCategory(cat.value)" #cat required>
+                <option value="South Indian">South Indian</option>
+                <option value="Gujarati">Gujarati</option>
+                <option value="Punjabi">Punjabi</option>
+                <option value="Mexican">Mexican</option>
+                
+            </select>
+               
+
+            </div><br>
+            <label>Price:</label><br>
+            <input id="itemprice" pattern="[A-Za-z0-9]+" type="number" min="0" onkeyup="if(this.value<0){return this.value= this.value * -1}" class="form form-control formControl" [(ngModel)]="itemPrice" placeholder="Item Price"  name="priceField" required><br>
+            
+            <div><label for="isSpecial">Special </label> <input type="checkbox" id="isSpecial" value="Special" name="specialityCheck"></div><br>
+            
+            <button id="submitBtn" class="btn btn-primary" [disabled]="!myForm.form.valid" (click)="onAddingItem()">Add</button>
+            <br>
+            
+            <ul>
+                <li *ngFor="let itm of itemArray">{{ itm.id }} {{ itm.name }} {{ itm.url }} {{ itm.category }} {{ itm.price }} {{ itm.speciality }}</li>
+            </ul>
+        </form>
+        <hr>
+    </div>
+    <div class="col-md-7">
+        <app-display-item [detailArray]="itemArray"></app-display-item>
+        <!-- display component here -->
+    </div>
+</div><br>
