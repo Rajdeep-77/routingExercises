@@ -8,8 +8,7 @@
             
             <label>Item Name:</label><br>
             <input id="itemName" pattern="[A-Za-z0-9]+" type="text" class="form form-control formControl" [(ngModel)]="itemName" placeholder="Item Name"  name="nameField" required><br>
-            <p id="nameInputError" style="display: none;"> Please enter valid input name !</p>
-            
+   
             <label>Image Url:</label><br>
             <input id="imgUrl" type="text" onkeydown="if(['Space'].includes(arguments[0].code)){return false;}" class="form form-control formControl" placeholder="Image Url" [(ngModel)]="imgUrl"  name="urlField" required><br><br>
             <!-- <p>https://cdn.iconscout.com/icon/free/png-256/gujrati-food-1851596-1569321.png</p> -->
@@ -36,9 +35,9 @@
             <button id="submitBtn" class="btn btn-primary" [disabled]="!myForm.form.valid" (click)="onAddingItem()">Add</button>
             <br>
             
-            <ul>
+            <!-- <ul>
                 <li *ngFor="let itm of itemArray">{{ itm.id }} {{ itm.name }} {{ itm.url }} {{ itm.category }} {{ itm.price }} {{ itm.speciality }}</li>
-            </ul>
+            </ul> -->
         </form>
         <hr>
     </div>

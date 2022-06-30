@@ -1,21 +1,26 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { CentralServService, restaurantItem } from '../central-serv.service';
 
 @Component({
   selector: 'app-restaurant',
   templateUrl: './restaurant.component.html',
   styleUrls: ['./restaurant.component.css']
 })
-export class RestaurantComponent implements OnInit {
+export class RestaurantComponent implements OnInit, OnDestroy {
 
-  constructor() { }
+  constructor(private centralService:CentralServService) { }
+  ngOnDestroy() {
+    // console.log("-----FormPage-----Destroyed-----");
+  }
 
-  ngOnInit(): void {
+  ngOnInit() {
+    this.itemArray=this.centralService.sendingItemArray();
   }
   itemName:string;
   imgUrl:string;
   itemCategory:string="South Indian";
   itemPrice:number;
-  itemArray:Array<object>=[];
+  itemArray:Array<restaurantItem>=[];
   // itemForMenu:Array<object>=[];
   // isSpecial=(<HTMLInputElement>document.querySelector('#isSpecial')).checked;
   
@@ -26,6 +31,7 @@ export class RestaurantComponent implements OnInit {
   //This function submits form-data and adds it into array of data
   onAddingItem(){
     this.itemArray.push({ id:(this.itemArray.length+1) ,name:this.itemName, url:this.imgUrl, category:this.itemCategory, price:this.itemPrice, speciality:(<HTMLInputElement>document.querySelector('#isSpecial')).checked });
+    this.centralService.gettingItemArray(this.itemArray);
     this.itemName='';
     this.imgUrl='';
     this.itemPrice=null;

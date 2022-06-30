@@ -4,3 +4,6 @@
 .imgTag{
     height: 100px;
 }
+.displayList{
+    list-style-type: none;
+}

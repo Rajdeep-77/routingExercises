@@ -7,9 +7,10 @@ import { RestaurantComponent } from "./restaurant/restaurant.component";
 
 const theRoutes:Routes=[
     // { path:'', redirectTo:'/form' , pathMatch:'full'},
-    {path:'form', component:RestaurantComponent 
+    {path:'', component:RestaurantComponent 
     // ,children:[ { path:'display', component:DisplayItemComponent }]
     },
+    
     {path:'menuPage', component:MenuPageComponent}
 ];
 

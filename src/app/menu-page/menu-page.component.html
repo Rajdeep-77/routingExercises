@@ -1,12 +1,27 @@
 <h2>Today's Menu</h2><br><br>
-<ul>
+<!-- <ul>
     <li *ngFor="let itm of menuArray">{{ itm.id }} {{ itm.name }} {{ itm.url }} {{ itm.category }} {{ itm.price }} {{ itm.speciality }}</li>
-</ul>
+</ul> -->
 <div class="container">
     <h4> South Indian</h4>
     <p>-----</p>
     <ul>
-        <li></li>
+        <ng-container *ngFor="let itm of menuArray">
+            <li  *ngIf="itm.category=='South Indian'">
+                <div  class="list-group-item clearfix" >
+                    <div class="pull-left">
+                        <h4 *ngIf="!itm.speciality">{{ itm.name }}</h4>
+                        <h4 *ngIf="itm.speciality" appSpeicalItem>{{ itm.name }} <b>(Special)</b></h4>
+                        <span class="float-end">
+                            <img [src]="itm.url" alt="{{ itm.name }}" class="img-responsive itemImageInMenu">
+                        </span>
+                        <p>{{ itm.category }}</p>
+                        <p>{{ itm.price }} /- Rs only.</p>
+                        <button class="btn btn-danger" (click)="onRemoveFromMenu(itm)">Remove from menu</button>
+                    </div> 
+                </div>
+            </li>
+        </ng-container>
     </ul>
     <p>-----</p>
 </div>
@@ -16,7 +31,22 @@
     <h4> Gujarati</h4>
     <p>-----</p>
     <ul>
-        <li></li>
+        <ng-container *ngFor="let itm of menuArray">
+            <li  *ngIf="itm.category=='Gujarati'">
+                <div  class="list-group-item clearfix" >
+                    <div class="pull-left">
+                        <h4 *ngIf="!itm.speciality">{{ itm.name }}</h4>
+                        <h4 *ngIf="itm.speciality" appSpeicalItem>{{ itm.name }} <b>(Special)</b></h4>
+                        <span class="float-end">
+                            <img [src]="itm.url" alt="{{ itm.name }}" class="img-responsive itemImageInMenu">
+                        </span>
+                        <p>{{ itm.category }}</p>
+                        <p>{{ itm.price }} /- Rs only.</p>
+                        <button class="btn btn-danger" (click)="onRemoveFromMenu(itm)">Remove from menu</button>
+                    </div> 
+                </div>
+            </li>
+        </ng-container>
     </ul>
     <p>-----</p>
 </div>
@@ -26,7 +56,22 @@
     <h4> Punjabi</h4>
     <p>-----</p>
     <ul>
-        <li></li>
+        <ng-container *ngFor="let itm of menuArray">
+            <li  *ngIf="itm.category=='Punjabi'">
+                <div  class="list-group-item clearfix" >
+                    <div class="pull-left">
+                        <h4 *ngIf="!itm.speciality">{{ itm.name }}</h4>
+                        <h4 *ngIf="itm.speciality" appSpeicalItem>{{ itm.name }} <b>(Special)</b></h4>
+                        <span class="float-end">
+                            <img [src]="itm.url" alt="{{ itm.name }}" class="img-responsive itemImageInMenu">
+                        </span>
+                        <p>{{ itm.category }}</p>
+                        <p>{{ itm.price }} /- Rs only.</p>
+                        <button class="btn btn-danger" (click)="onRemoveFromMenu(itm)">Remove from menu</button>
+                    </div> 
+                </div>
+            </li>
+        </ng-container>    
     </ul>
     <p>-----</p>
 </div>
@@ -36,8 +81,24 @@
     <h4> Mexican</h4>
     <p>-----</p>
     <ul>
-        <li></li>
+        <ng-container *ngFor="let itm of menuArray">
+            <li  *ngIf="itm.category=='Mexican'">
+                <div  class="list-group-item clearfix">
+                    <div class="pull-left">
+                        <h4 *ngIf="!itm.speciality">{{ itm.name }}</h4>
+                        <h4 *ngIf="itm.speciality" appSpeicalItem>{{ itm.name }} <b>(Special)</b></h4>
+                        <span class="float-end">
+                            <img [src]="itm.url" alt="{{ itm.name }}" class="img-responsive itemImageInMenu">
+                        </span>
+                        <p>{{ itm.category }}</p>
+                        <p>{{ itm.price }} /- Rs only.</p>
+                        <button class="btn btn-danger" (click)="onRemoveFromMenu(itm)">Remove from menu</button>
+                    </div> 
+                </div>
+            </li>
+        </ng-container>    
     </ul>
     <p>-----</p>
 </div>
+
 <hr>

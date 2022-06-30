@@ -1,21 +1,21 @@
-<ul>
+<ul class="displayList">
     <li *ngFor="let it of detailArray">
         <div  class="list-group-item clearfix" >
                 <div class="pull-left">
-                    <h4 class="light-group-item-heading" *ngIf="!it.speciality">{{ it.name }}</h4>
-                    <h4 class="light-group-item-heading" *ngIf="it.speciality">{{ it.name }} <b>(Special)</b></h4>
+                    <h4 *ngIf="!it.speciality">{{ it.name }}</h4>
+                    <h4 *ngIf="it.speciality">{{ it.name }} <b>(Special)</b></h4>
                     <span class="float-end">
                         <img [src]="it.url" alt="{{ it.name }}" class="img-responsive imgTag">
                     </span>
-                    <p class="list-group-item-text">{{ it.category }}</p>
-                    <p class="list-group-item-text">{{ it.price }} /- Rs only.</p>
+                    <p>{{ it.category }}</p>
+                    <p>{{ it.price }} /- Rs only.</p>
                     <button class="btn btn-danger" (click)="onAddtoMenu(this.it)">Add to menu</button>
                 </div>
             
         </div>
     </li>
-<!-- </ul>
-<p id="demo"></p>
-<ul> -->
+ </ul>
+<!-- <p id="demo"></p> -->
+<!-- <ul> 
     <li *ngFor="let itms of itemForMenu">{{ itms.id }} {{ itms.name }} {{ itms.url }} {{ itms.category }} {{ itms.price }} {{ itms.speciality }}</li>
-</ul>
+</ul> -->

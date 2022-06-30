@@ -8,6 +8,7 @@ import { RestaurantComponent } from './restaurant/restaurant.component';
 import { DisplayItemComponent } from './display-item/display-item.component';
 import { MenuPageComponent } from './menu-page/menu-page.component';
 import { AppRoutingModule } from './app-routing.module';
+import { SpeicalItemDirective } from './speical-item.directive';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { AppRoutingModule } from './app-routing.module';
     NavbarComponent,
     RestaurantComponent,
     DisplayItemComponent,
-    MenuPageComponent
+    MenuPageComponent,
+    SpeicalItemDirective
   ],
   imports: [
     BrowserModule,
