@@ -24,7 +24,7 @@ export class MenuPageComponent implements OnInit ,OnDestroy{
 
   //This function gets an array from central service
   gettingArray(){
-    this.menuArray=this.demoService.setArray();
+    this.menuArray=this.demoService.getDisplay();
     // this.demoService.getPush(this.menuArray);
     // this.demoService.sendArray(demoArray);
     // this.menuArray.push(this.demoService.sendArray());

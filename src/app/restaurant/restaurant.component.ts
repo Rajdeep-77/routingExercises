@@ -21,6 +21,8 @@ export class RestaurantComponent implements OnInit, OnDestroy {
   itemCategory:string="South Indian";
   itemPrice:number;
   itemArray:Array<restaurantItem>=[];
+  isSpecial:boolean=false; 
+  // isSpecial= (<HTMLInputElement>document.getElementById('isSpecial')).checked ? true : false;
   // itemForMenu:Array<object>=[];
   // isSpecial=(<HTMLInputElement>document.querySelector('#isSpecial')).checked;
   
@@ -30,12 +32,13 @@ export class RestaurantComponent implements OnInit, OnDestroy {
 
   //This function submits form-data and adds it into array of data
   onAddingItem(){
-    this.itemArray.push({ id:(this.itemArray.length+1) ,name:this.itemName, url:this.imgUrl, category:this.itemCategory, price:this.itemPrice, speciality:(<HTMLInputElement>document.querySelector('#isSpecial')).checked });
+    this.itemArray.push({ id:(this.itemArray.length+1) ,name:this.itemName, url:this.imgUrl, category:this.itemCategory, price:this.itemPrice, speciality:this.isSpecial });
     this.centralService.gettingItemArray(this.itemArray);
     this.itemName='';
     this.imgUrl='';
     this.itemPrice=null;
-    (<HTMLInputElement>document.querySelector('#isSpecial')).checked = false;
+    this.isSpecial = false;
+    // (<HTMLInputElement>document.querySelector('#isSpecial')).checked = false;
   }
 
 

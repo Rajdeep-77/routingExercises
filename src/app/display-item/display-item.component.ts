@@ -22,7 +22,7 @@ export class DisplayItemComponent implements OnInit {
   onAddtoMenu(elem:restaurantItem){
     // document.getElementById('demo').innerHTML="The object we got is " + JSON.stringify(elem);
     this.itemForMenu.push(elem);
-    this.centralArray.getArray(elem);
+    this.centralArray.setDisplay(elem);
     // console.log("Element is: "+JSON.stringify(elem));
 
   }

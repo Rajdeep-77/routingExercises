@@ -23,20 +23,24 @@ export class CentralServService {
   arrayOfItems:restaurantItem[]=[];
   // a:Array<object>
 
-  getArray(element: restaurantItem){
+  // This function sets an array of items from display that are added for menu
+  setDisplay(element: restaurantItem){
     // this.arrayOfMenu.push(element);
     this.arrayOfMenu.push(element);
     // console.log("The element we got is: "+ JSON.stringify(element));
   }
 
-  setArray(){
+  // This function gets an array of items from display that are added for menu
+  getDisplay(){
    return this.arrayOfMenu;
   }
 
+  // This function gets an array of items from restaurant component
   gettingItemArray(itemArray:Array<restaurantItem>){
     this.arrayOfItems=itemArray;
   }
 
+  // This function returns an array of items from restaurant component
   sendingItemArray(){
     return this.arrayOfItems;
   }
