@@ -14,7 +14,7 @@ export class RestaurantComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.itemArray=this.centralService.sendingItemArray();
+    this.itemArray=this.centralService.getItemArray();
   }
   itemName:string;
   imgUrl:string;
@@ -33,7 +33,7 @@ export class RestaurantComponent implements OnInit, OnDestroy {
   //This function submits form-data and adds it into array of data
   onAddingItem(){
     this.itemArray.push({ id:(this.itemArray.length+1) ,name:this.itemName, url:this.imgUrl, category:this.itemCategory, price:this.itemPrice, speciality:this.isSpecial });
-    this.centralService.gettingItemArray(this.itemArray);
+    this.centralService.setItemArray(this.itemArray);
     this.itemName='';
     this.imgUrl='';
     this.itemPrice=null;

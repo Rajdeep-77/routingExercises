@@ -36,12 +36,12 @@ export class CentralServService {
   }
 
   // This function gets an array of items from restaurant component
-  gettingItemArray(itemArray:Array<restaurantItem>){
+  setItemArray(itemArray:Array<restaurantItem>){
     this.arrayOfItems=itemArray;
   }
 
   // This function returns an array of items from restaurant component
-  sendingItemArray(){
+  getItemArray(){
     return this.arrayOfItems;
   }
 }
