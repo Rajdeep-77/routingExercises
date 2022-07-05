@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-
-
+import { Subject } from 'rxjs';
 
 export interface restaurantItem{
   id: number;
@@ -11,13 +10,12 @@ export interface restaurantItem{
   speciality:boolean
 }
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 
 export class CentralServService {
 
   constructor() { }
+  itemSubject = new Subject<Array<restaurantItem>>() ;
 
   arrayOfMenu:Array<restaurantItem>=[];
   arrayOfItems:restaurantItem[]=[];
@@ -44,4 +42,6 @@ export class CentralServService {
   getItemArray(){
     return this.arrayOfItems;
   }
+
+
 }

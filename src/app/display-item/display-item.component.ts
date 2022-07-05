@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { CentralServService, restaurantItem } from '../central-serv.service';
 
 @Component({
@@ -7,24 +8,31 @@ import { CentralServService, restaurantItem } from '../central-serv.service';
   styleUrls: ['./display-item.component.css']
   // providers:[CentralServService]
 })
-export class DisplayItemComponent implements OnInit {
+export class DisplayItemComponent implements OnInit , OnDestroy{
 
-  @Input() detailArray:Array<restaurantItem>;
+  detailArray:Array<restaurantItem>=[];
+  // @Input() detailArray:Array<restaurantItem>;
   itemForMenu:Array<restaurantItem>=[];
 
-  constructor(private centralArray:CentralServService) { }
-
-  ngOnInit(): void {
+  constructor(private centralServ:CentralServService) { }
+  
+  private subscription:Subscription;
+  ngOnInit() {
     // this.itemForMenu=this.centralArray.sendArray();
+    this.detailArray= this.centralServ.getItemArray();
+    this.subscription = this.centralServ.itemSubject.subscribe( arr => { this.detailArray = arr; }) ;
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
   // This function sends an array that contains items to be pushed into Menu, to the central service
   onAddtoMenu(elem:restaurantItem){
     // document.getElementById('demo').innerHTML="The object we got is " + JSON.stringify(elem);
     this.itemForMenu.push(elem);
-    this.centralArray.setDisplay(elem);
+    this.centralServ.setDisplay(elem);
     // console.log("Element is: "+JSON.stringify(elem));
-
   }
 
 }

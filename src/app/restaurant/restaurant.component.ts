@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subject } from 'rxjs';
 import { CentralServService, restaurantItem } from '../central-serv.service';
 
 @Component({
@@ -21,6 +22,7 @@ export class RestaurantComponent implements OnInit, OnDestroy {
   itemCategory:string="South Indian";
   itemPrice:number;
   itemArray:Array<restaurantItem>=[];
+  
   isSpecial:boolean=false; 
   // isSpecial= (<HTMLInputElement>document.getElementById('isSpecial')).checked ? true : false;
   // itemForMenu:Array<object>=[];
@@ -34,6 +36,7 @@ export class RestaurantComponent implements OnInit, OnDestroy {
   onAddingItem(){
     this.itemArray.push({ id:(this.itemArray.length+1) ,name:this.itemName, url:this.imgUrl, category:this.itemCategory, price:this.itemPrice, speciality:this.isSpecial });
     this.centralService.setItemArray(this.itemArray);
+    this.centralService.itemSubject.next(this.itemArray);
     this.itemName='';
     this.imgUrl='';
     this.itemPrice=null;
