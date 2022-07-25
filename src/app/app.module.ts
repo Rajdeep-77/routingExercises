@@ -9,6 +9,7 @@ import { DisplayItemComponent } from './display-item/display-item.component';
 import { MenuPageComponent } from './menu-page/menu-page.component';
 import { AppRoutingModule } from './app-routing.module';
 import { SpeicalItemDirective } from './speical-item.directive';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { SpeicalItemDirective } from './speical-item.directive';
   imports: [
     BrowserModule,
     FormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   // providers: [RestaurantComponent],
   bootstrap: [AppComponent]

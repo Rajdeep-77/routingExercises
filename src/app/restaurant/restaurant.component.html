@@ -1,6 +1,6 @@
 <div class="container row">
     <div class="col-md-5">
-        <form #myForm="ngForm" onsubmit="event.preventDefault();">
+        <form #myForm="ngForm" onsubmit="event.preventDefault();" >
 
             <!-- <h4>Exercise-3</h4> -->
             <h2>Restaurant Entry</h2>
@@ -38,6 +38,8 @@
                 <li *ngFor="let itm of itemArray">{{ itm.id }} {{ itm.name }} {{ itm.url }} {{ itm.category }} {{ itm.price }} {{ itm.speciality }}</li>
             </ul> -->
         </form>
+        <!-- <button id="getBtn" class="btn btn-danger" (click)="fetchFood()">Fetch food items</button> -->
+
         <hr>
     </div>
     <div class="col-md-7">

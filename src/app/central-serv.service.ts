@@ -1,5 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
+import { map } from "rxjs/operators";
+
 
 export interface restaurantItem{
   id: number;
@@ -14,7 +17,7 @@ export interface restaurantItem{
 
 export class CentralServService {
 
-  constructor() { }
+  constructor(private http:HttpClient) { }
   itemSubject = new Subject<Array<restaurantItem>>() ;
 
   arrayOfMenu:Array<restaurantItem>=[];
@@ -41,6 +44,20 @@ export class CentralServService {
   // This function returns an array of items from restaurant component
   getItemArray(){
     return this.arrayOfItems;
+  }
+
+
+
+   // This function gets data from server
+  getServerData(){
+    this.http.get('https://ng-restaurant-app-a4dac-default-rtdb.firebaseio.com/food.json')
+    .pipe( map( (item:restaurantItem) => { 
+                          const tempArray =[];
+                          for(const key in item){
+                            if(item.hasOwnProperty(key)){ tempArray.push( { ...item[key] } ); } }
+                            return tempArray;   
+      })
+       ).subscribe(tarr => { this.itemSubject.next(tarr); console.log(tarr) } );
   }
 
 
