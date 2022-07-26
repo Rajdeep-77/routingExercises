@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { CentralServService, restaurantItem } from '../central-serv.service';
 import { HttpClient } from '@angular/common/http';
+import { map } from "rxjs/operators";
 
 
 @Component({
@@ -15,6 +16,7 @@ export class RestaurantComponent implements OnInit, OnDestroy {
   
   ngOnInit() {
     this.fetchFood();
+    console.log(this.fetchFood())
   }
 
   ngOnDestroy() {
@@ -23,9 +25,9 @@ export class RestaurantComponent implements OnInit, OnDestroy {
 
   itemName:string;
   imgUrl:string;
-  itemCategory:string="South Indian";
+  itemCategory:string = "South Indian";
   itemPrice:number;
-  itemArray:Array<restaurantItem>=[];
+  itemArray:Array<restaurantItem> = [] ;
   
   isSpecial:boolean=false; 
   // isSpecial= (<HTMLInputElement>document.getElementById('isSpecial')).checked ? true : false;
@@ -39,17 +41,20 @@ export class RestaurantComponent implements OnInit, OnDestroy {
   //This function submits form-data and adds it into array of data
   onAddingItem(){
     // this.itemArray.push({ id:(this.itemArray.length+1) ,name:this.itemName, url:this.imgUrl, category:this.itemCategory, price:this.itemPrice, speciality:this.isSpecial });
-    const tempObj ={ id:(this.itemArray.length+1) ,name:this.itemName, url:this.imgUrl, category:this.itemCategory, price:this.itemPrice, speciality:this.isSpecial };
+    const tempObj = { id:(this.itemArray.length+1) ,name:this.itemName, url:this.imgUrl, category:this.itemCategory, price:this.itemPrice, speciality:this.isSpecial };
+    
+    this.itemArray = this.centralService.arrayOfItems;
+
     this.itemArray.push(tempObj);
     
-    this.centralService.setServerData(tempObj);
-
-    this.centralService.setItemArray(this.itemArray);
+    // this.centralService.setItemArray(this.itemArray);
     this.centralService.itemSubject.next(this.itemArray);
 
-    this.itemName='';
-    this.imgUrl='';
-    this.itemPrice=null;
+    this.centralService.setServerData(tempObj);
+
+    this.itemName = '';
+    this.imgUrl = '';
+    this.itemPrice = null;
     this.isSpecial = false;
     // (<HTMLInputElement>document.querySelector('#isSpecial')).checked = false;
   }

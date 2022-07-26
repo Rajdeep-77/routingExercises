@@ -24,6 +24,7 @@ export class CentralServService {
   arrayOfItems:restaurantItem[] = [];
   // a:Array<object>
 
+  
   // This function sets an array of items from display that are added for menu
   setDisplay(element: restaurantItem){
     // this.arrayOfMenu.push(element);
@@ -31,42 +32,51 @@ export class CentralServService {
     // console.log("The element we got is: "+ JSON.stringify(element));
   }
 
+  
   // This function gets an array of items from display that are added for menu
   getDisplay(){
    return this.arrayOfMenu;
   }
 
+  
   // This function gets an array of items from restaurant component
   setItemArray(itemArray:Array<restaurantItem>){
     this.arrayOfItems=itemArray;
   }
 
+  
   // This function returns an array of items from restaurant component
   getItemArray(){
     return this.arrayOfItems;
   }
 
+  
   // This function sets data in server
   setServerData(objToPush){
+    // this.http.delete('https://ng-restaurant-app-a4dac-default-rtdb.firebaseio.com/food.json');
 
-    this.http.post('https://ng-restaurant-app-a4dac-default-rtdb.firebaseio.com/food.json',objToPush)
-    .subscribe((response:restaurantItem) => { this.arrayOfItems.push(response);});
+    // for(let i=0; i<=this.arrayOfItems.length; i++){
+      // const obj = this.arrayOfItems[i];
+      this.http.post('https://ng-restaurant-app-a4dac-default-rtdb.firebaseio.com/food.json',objToPush)
+               .subscribe((response:restaurantItem) => { console.log(response);});
+    // }
+    
   }
 
-   // This function gets data from server
+  
+  // This function gets data from server
   getServerData(){
     this.http.get('https://ng-restaurant-app-a4dac-default-rtdb.firebaseio.com/food.json')
-    .pipe( map( (item:restaurantItem) => { 
+             .pipe( map( (item:restaurantItem) => { 
                           const tempArray =[];
                           for(const key in item){
                             if(item.hasOwnProperty(key)){ tempArray.push( { ...item[key] } ); } }
-                            return tempArray;   
-      })
-       ).subscribe(tarr => { 
-        this.itemSubject.next(tarr);
-         this.arrayOfItems = tarr; 
-        } );
+                            return tempArray;   }))
+             .subscribe(tarr => { 
+                                  this.itemSubject.next(tarr);
+                                  this.arrayOfItems = tarr; 
+                                  // this.displayItem.detailArray = tarr; 
+                                } );
   }
-
 
 }

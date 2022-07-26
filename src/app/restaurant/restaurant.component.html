@@ -27,7 +27,7 @@
 
             </div><br>
             <label>Price:</label><br>
-            <input id="itemprice" pattern="[A-Za-z0-9]+" type="number" min="0" onkeyup="if(this.value<0){return this.value= this.value * -1}" class="form form-control formControl" [(ngModel)]="itemPrice" placeholder="Item Price"  name="priceField" required><br>
+            <input id="itemprice"  type="number" min="0" onkeyup="if(this.value<0){return this.value= this.value * -1}" class="form form-control formControl" [(ngModel)]="itemPrice" placeholder="Item Price"  name="priceField" required><br>
             
             <div><label for="isSpecial">Special </label> <input type="checkbox" id="isSpecial" [(ngModel)]="isSpecial" value="true" name="specialityCheck"></div><br>
             

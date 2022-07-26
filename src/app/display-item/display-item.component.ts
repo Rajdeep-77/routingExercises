@@ -10,17 +10,17 @@ import { CentralServService, restaurantItem } from '../central-serv.service';
 })
 export class DisplayItemComponent implements OnInit , OnDestroy{
 
-  detailArray:Array<restaurantItem>=[];
+  detailArray:Array<restaurantItem> = [];
   // @Input() detailArray:Array<restaurantItem>;
-  itemForMenu:Array<restaurantItem>=[];
+  itemForMenu:Array<restaurantItem> = [];
 
   constructor(private centralServ:CentralServService) { }
   
   private subscription:Subscription;
-  ngOnInit() {
+  async ngOnInit() {
     // this.itemForMenu=this.centralArray.sendArray();
-    this.detailArray= this.centralServ.getItemArray();
-    this.subscription = this.centralServ.itemSubject.subscribe( arr => { this.detailArray = arr; }) ;
+    // this.detailArray= this.centralServ.getItemArray();
+    this.subscription = await this.centralServ.itemSubject.subscribe( arr => { this.detailArray = arr; console.log(this.detailArray) }) ;
   }
 
   ngOnDestroy() {
