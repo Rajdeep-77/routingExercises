@@ -12,14 +12,15 @@ import { HttpClient } from '@angular/common/http';
 export class RestaurantComponent implements OnInit, OnDestroy {
 
   constructor(private centralService:CentralServService, private http:HttpClient) { }
+  
+  ngOnInit() {
+    this.fetchFood();
+  }
+
   ngOnDestroy() {
     // console.log("-----FormPage-----Destroyed-----");
   }
 
-  ngOnInit() {
-    this.fetchFood();
-    this.itemArray=this.centralService.getItemArray();
-  }
   itemName:string;
   imgUrl:string;
   itemCategory:string="South Indian";
@@ -41,8 +42,7 @@ export class RestaurantComponent implements OnInit, OnDestroy {
     const tempObj ={ id:(this.itemArray.length+1) ,name:this.itemName, url:this.imgUrl, category:this.itemCategory, price:this.itemPrice, speciality:this.isSpecial };
     this.itemArray.push(tempObj);
     
-    this.http.post('https://ng-restaurant-app-a4dac-default-rtdb.firebaseio.com/food.json',tempObj)
-    .subscribe((response:restaurantItem) => { console.log(response);});
+    this.centralService.setServerData(tempObj);
 
     this.centralService.setItemArray(this.itemArray);
     this.centralService.itemSubject.next(this.itemArray);

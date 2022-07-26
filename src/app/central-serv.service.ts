@@ -20,8 +20,8 @@ export class CentralServService {
   constructor(private http:HttpClient) { }
   itemSubject = new Subject<Array<restaurantItem>>() ;
 
-  arrayOfMenu:Array<restaurantItem>=[];
-  arrayOfItems:restaurantItem[]=[];
+  arrayOfMenu:Array<restaurantItem> = [];
+  arrayOfItems:restaurantItem[] = [];
   // a:Array<object>
 
   // This function sets an array of items from display that are added for menu
@@ -46,7 +46,12 @@ export class CentralServService {
     return this.arrayOfItems;
   }
 
+  // This function sets data in server
+  setServerData(objToPush){
 
+    this.http.post('https://ng-restaurant-app-a4dac-default-rtdb.firebaseio.com/food.json',objToPush)
+    .subscribe((response:restaurantItem) => { this.arrayOfItems.push(response);});
+  }
 
    // This function gets data from server
   getServerData(){
@@ -57,7 +62,10 @@ export class CentralServService {
                             if(item.hasOwnProperty(key)){ tempArray.push( { ...item[key] } ); } }
                             return tempArray;   
       })
-       ).subscribe(tarr => { this.itemSubject.next(tarr); console.log(tarr) } );
+       ).subscribe(tarr => { 
+        this.itemSubject.next(tarr);
+         this.arrayOfItems = tarr; 
+        } );
   }
 
 
