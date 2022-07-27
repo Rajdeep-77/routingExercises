@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import { map } from "rxjs/operators";
-
+import { map, tap } from "rxjs/operators";
+// import * as firebase from '@angular/fire';
 
 export interface restaurantItem{
   id: number;
@@ -17,11 +17,14 @@ export interface restaurantItem{
 
 export class CentralServService {
 
+
+  
   constructor(private http:HttpClient) { }
   itemSubject = new Subject<Array<restaurantItem>>() ;
 
   arrayOfMenu:Array<restaurantItem> = [];
   arrayOfItems:restaurantItem[] = [];
+  serverNameArray=[]
   // a:Array<object>
 
   
@@ -41,8 +44,14 @@ export class CentralServService {
   
   // This function gets an array of items from restaurant component
   setItemArray(itemArray:Array<restaurantItem>){
-    this.arrayOfItems=itemArray;
-  }
+    this.arrayOfItems=itemArray.filter(element => {
+        if (Object.keys(element).length !== 0) {
+          return true;
+        }
+      
+        return false;
+  })
+}
 
   
   // This function returns an array of items from restaurant component
@@ -52,13 +61,13 @@ export class CentralServService {
 
   
   // This function sets data in server
-  setServerData(objToPush){
+  setServerData(arrServer){
     // this.http.delete('https://ng-restaurant-app-a4dac-default-rtdb.firebaseio.com/food.json');
 
     // for(let i=0; i<=this.arrayOfItems.length; i++){
       // const obj = this.arrayOfItems[i];
-      this.http.post('https://ng-restaurant-app-a4dac-default-rtdb.firebaseio.com/food.json',objToPush)
-               .subscribe((response:restaurantItem) => { console.log(response);});
+      this.http.put('https://ng-restaurant-app-a4dac-default-rtdb.firebaseio.com/food.json',arrServer)
+               .subscribe(response => { console.log(response);});
     // }
     
   }
@@ -66,17 +75,35 @@ export class CentralServService {
   
   // This function gets data from server
   getServerData(){
-    this.http.get('https://ng-restaurant-app-a4dac-default-rtdb.firebaseio.com/food.json')
-             .pipe( map( (item:restaurantItem) => { 
-                          const tempArray =[];
-                          for(const key in item){
-                            if(item.hasOwnProperty(key)){ tempArray.push( { ...item[key] } ); } }
-                            return tempArray;   }))
+    this.http.get<restaurantItem[]>('https://ng-restaurant-app-a4dac-default-rtdb.firebaseio.com/food.json')
+             .pipe( map( (item) => { 
+                          // const tempArray =[];
+                          // for(const key in item){
+                            // if(item.hasOwnProperty(key)){ tempArray.push( { ...item[key] } ); } }
+                            // return tempArray;   }))
+                            return item.map( it => { return {...it}; });   }),
+                            tap( recipes => { this.setItemArray(recipes); }))
              .subscribe(tarr => { 
-                                  this.itemSubject.next(tarr);
-                                  this.arrayOfItems = tarr; 
+                                  this.itemSubject.next(tarr.filter(element => {
+                                      if (Object.keys(element).length !== 0) {
+                                        return true;
+                                      }
+                                    
+                                      return false;
+                                    }))
+                                  // this.arrayOfItems = tarr; 
                                   // this.displayItem.detailArray = tarr; 
                                 } );
+  }
+
+  // This function deletes particular data from server
+  onDeletePost(index){
+    console.log(index);
+    this.http.delete(`https://ng-restaurant-app-a4dac-default-rtdb.firebaseio.com/food/${index}.json`).subscribe();
+
+  // this.http.put( 'https://ng-restaurant-app-a4dac-default-rtdb.firebaseio.com/food.json', this.arrayOfItems).subscribe(response => {console.log(response);});
+
+    // firebase.database().ref().child('/food/'+id+'/').remove();
   }
 
 }

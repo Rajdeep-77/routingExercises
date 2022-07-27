@@ -16,11 +16,13 @@ export class RestaurantComponent implements OnInit, OnDestroy {
   
   ngOnInit() {
     this.fetchFood();
-    console.log(this.fetchFood())
   }
 
   ngOnDestroy() {
     // console.log("-----FormPage-----Destroyed-----");
+    // this.http
+    //     .put( 'https://ng-restaurant-app-a4dac-default-rtdb.firebaseio.com/food.json', this.itemArray)
+    //     .subscribe(response => {console.log(response);});
   }
 
   itemName:string;
@@ -41,16 +43,24 @@ export class RestaurantComponent implements OnInit, OnDestroy {
   //This function submits form-data and adds it into array of data
   onAddingItem(){
     // this.itemArray.push({ id:(this.itemArray.length+1) ,name:this.itemName, url:this.imgUrl, category:this.itemCategory, price:this.itemPrice, speciality:this.isSpecial });
-    const tempObj = { id:(this.itemArray.length+1) ,name:this.itemName, url:this.imgUrl, category:this.itemCategory, price:this.itemPrice, speciality:this.isSpecial };
-    
+    const tempObj = { id:(this.centralService.arrayOfItems.length) ,name:this.itemName, url:this.imgUrl, category:this.itemCategory, price:this.itemPrice, speciality:this.isSpecial };
+   
     this.itemArray = this.centralService.arrayOfItems;
+
+//     this.itemArray = this.itemArray.filter(element => {
+//   if (Object.keys(element).length !== 0) {
+//     return true;
+//   }
+
+//   return false;
+// });
 
     this.itemArray.push(tempObj);
     
     // this.centralService.setItemArray(this.itemArray);
     this.centralService.itemSubject.next(this.itemArray);
 
-    this.centralService.setServerData(tempObj);
+    this.centralService.setServerData(this.itemArray);
 
     this.itemName = '';
     this.imgUrl = '';
