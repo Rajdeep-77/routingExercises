@@ -9,7 +9,8 @@ import { DisplayItemComponent } from './display-item/display-item.component';
 import { MenuPageComponent } from './menu-page/menu-page.component';
 import { AppRoutingModule } from './app-routing.module';
 import { SpeicalItemDirective } from './speical-item.directive';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptorService } from './auth-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,7 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     HttpClientModule
   ],
-  // providers: [RestaurantComponent],
+  providers: [RestaurantComponent, { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true } ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

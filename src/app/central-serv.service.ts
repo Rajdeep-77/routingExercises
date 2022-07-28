@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { map, tap } from "rxjs/operators";
@@ -66,7 +66,7 @@ export class CentralServService {
 
     // for(let i=0; i<=this.arrayOfItems.length; i++){
       // const obj = this.arrayOfItems[i];
-      this.http.put('https://ng-restaurant-app-a4dac-default-rtdb.firebaseio.com/food.json',arrServer)
+      this.http.put('https://ng-restaurant-app-a4dac-default-rtdb.firebaseio.com/food.json',arrServer, { headers: new HttpHeaders({'HeaderSettedDuring':'put'}) })
                .subscribe(response => { console.log(response);});
     // }
     
