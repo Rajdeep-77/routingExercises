@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { map, tap } from "rxjs/operators";
 // import * as firebase from '@angular/fire';
 
@@ -19,8 +19,10 @@ export class CentralServService {
 
 
   
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient) { this.menuList.subscribe( arr => { this.menuItemArray =arr; })}
   itemSubject = new Subject<Array<restaurantItem>>() ;
+  menuList = new BehaviorSubject<Array<restaurantItem>>([]) ;
+  menuItemArray:restaurantItem[];
 
   arrayOfMenu:Array<restaurantItem> = [];
   arrayOfItems:restaurantItem[] = [];
@@ -28,6 +30,7 @@ export class CentralServService {
   // a:Array<object>
 
   
+
   // This function sets an array of items from display that are added for menu
   setDisplay(element: restaurantItem){
     // this.arrayOfMenu.push(element);

@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { CentralServService, restaurantItem } from '../central-serv.service';
-import { RestaurantComponent } from '../restaurant/restaurant.component';
+import { MenuPageComponent } from '../menu-page/menu-page.component';
 
 @Component({
   selector: 'app-display-item',
@@ -13,15 +13,16 @@ import { RestaurantComponent } from '../restaurant/restaurant.component';
 export class DisplayItemComponent implements OnInit , OnDestroy{
 
   
-
   detailArray:Array<restaurantItem> = [];
-  // @Input() detailArray:Array<restaurantItem>;
   itemForMenu:Array<restaurantItem> = [];
+  
 
   constructor(private centralServ:CentralServService,private http:HttpClient) { }
   
   private subscription:Subscription;
   async ngOnInit() {
+
+   
     // this.itemForMenu=this.centralArray.sendArray();
     // this.detailArray= this.centralServ.getItemArray();
     this.subscription = this.centralServ.itemSubject.subscribe( arr => { this.detailArray = arr; console.log(this.detailArray) }) ;
@@ -37,8 +38,14 @@ export class DisplayItemComponent implements OnInit , OnDestroy{
   onAddtoMenu(elem:restaurantItem){
     this.itemForMenu.push(elem);
     this.centralServ.setDisplay(elem);
+    this.http.post('https://ng-restaurant-app-a4dac-default-rtdb.firebaseio.com/menu.json',elem)
+               .subscribe(response => { console.log(response);});
   }
 
+  // This function sends the object to edit
+  // editItem(objIndex){
+  //   this.objToEdit.emit(this.detailArray[objIndex]);
+  // }
 
   // This function removes item from array
   removeItem(itemIndex){
@@ -49,7 +56,6 @@ export class DisplayItemComponent implements OnInit , OnDestroy{
     // this.http.delete( `https://ng-restaurant-app-a4dac-default-rtdb.firebaseio.com/food/${itemIndex}.json`).subscribe(response => {console.log(response);});
 
   }
-
 
   // This function removes all data from server
   removeAll(){

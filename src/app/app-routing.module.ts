@@ -6,16 +6,16 @@ import { RestaurantComponent } from "./restaurant/restaurant.component";
 
 
 const theRoutes:Routes=[
-    // { path:'', redirectTo:'/form' , pathMatch:'full'},
-    {path:'', component:RestaurantComponent 
+    { path:'', redirectTo:'/form' , pathMatch:'full'},
+    {path:'form', component:RestaurantComponent 
     // ,children:[ { path:'display', component:DisplayItemComponent }]
     },
-    
-    {path:'menuPage', component:MenuPageComponent}
+    {path:':index', component:RestaurantComponent },    
+    {path:'menu/Page', component:MenuPageComponent}
 ];
 
 @NgModule({
     imports:[RouterModule.forRoot(theRoutes)],
     exports:[RouterModule]
 })
-export class AppRoutingModule{}
+export class AppRoutingModule {  }

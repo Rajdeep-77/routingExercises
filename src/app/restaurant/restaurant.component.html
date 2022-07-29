@@ -31,7 +31,7 @@
             
             <div><label for="isSpecial">Special </label> <input type="checkbox" id="isSpecial" [(ngModel)]="isSpecial" value="true" name="specialityCheck"></div><br>
             
-            <button id="submitBtn" class="btn btn-primary" [disabled]="!myForm.form.valid" (click)="onAddingItem()">Add</button>
+            <button id="submitBtn" [routerLink]="['']" class="btn btn-primary" [disabled]="!myForm.form.valid" (click)="onAddingItem()">{{ editMode ? 'Edit' : 'Add' }}</button>
             <br>
             
             <!-- <ul>

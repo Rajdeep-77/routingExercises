@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CentralServService, restaurantItem } from '../central-serv.service';
 import { RestaurantComponent } from '../restaurant/restaurant.component';
@@ -10,13 +11,15 @@ import { RestaurantComponent } from '../restaurant/restaurant.component';
 })
 export class MenuPageComponent implements OnInit ,OnDestroy{
 
-  constructor(private demoService:CentralServService ) { }
+  constructor(private demoService:CentralServService,private http:HttpClient ) { }
   ngOnDestroy() {
     // console.log("-------MenuPage-----Destroyed--------");
   }
 
   ngOnInit() {
     this.gettingArray();
+    // this.http.get<restaurantItem[]>('https://ng-restaurant-app-a4dac-default-rtdb.firebaseio.com/menu.json').subscribe( arr => {this.menuArray=arr;})
+
     // console.log(this.menuArray);
   }
   menuArray:Array<restaurantItem>=[];
@@ -35,6 +38,8 @@ export class MenuPageComponent implements OnInit ,OnDestroy{
   //This function removes item from the array
   onRemoveFromMenu(objToRemove){
     this.menuArray.splice(this.menuArray.findIndex(a => a.id === objToRemove.id) , 1);
+    this.http.put(`https://ng-restaurant-app-a4dac-default-rtdb.firebaseio.com/menu.json`,this.menuArray).subscribe(it => { console.log(it); });
+
   }
 }
 
