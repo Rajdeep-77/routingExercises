@@ -15,16 +15,12 @@ export class DisplayItemComponent implements OnInit , OnDestroy{
   
   detailArray:Array<restaurantItem> = [];
   itemForMenu:Array<restaurantItem> = [];
+  private subscription:Subscription;
   
 
   constructor(private centralServ:CentralServService,private http:HttpClient) { }
-  
-  private subscription:Subscription;
-  async ngOnInit() {
 
-   
-    // this.itemForMenu=this.centralArray.sendArray();
-    // this.detailArray= this.centralServ.getItemArray();
+  async ngOnInit() {
     this.subscription = this.centralServ.itemSubject.subscribe( arr => { this.detailArray = arr; console.log(this.detailArray) }) ;
   }
 
@@ -37,15 +33,11 @@ export class DisplayItemComponent implements OnInit , OnDestroy{
   // This function sends an array that contains items to be pushed into Menu, to the central service
   onAddtoMenu(elem:restaurantItem){
     this.itemForMenu.push(elem);
-    this.centralServ.setDisplay(elem);
-    this.http.post('https://ng-restaurant-app-a4dac-default-rtdb.firebaseio.com/menu.json',elem)
-               .subscribe(response => { console.log(response);});
+    this.centralServ.arrayOfMenu.push(elem);
+    this.http.put('https://ng-restaurant-app-a4dac-default-rtdb.firebaseio.com/menu.json',this.centralServ.arrayOfMenu)
+    .subscribe(response => { console.log(response);});
   }
 
-  // This function sends the object to edit
-  // editItem(objIndex){
-  //   this.objToEdit.emit(this.detailArray[objIndex]);
-  // }
 
   // This function removes item from array
   removeItem(itemIndex){

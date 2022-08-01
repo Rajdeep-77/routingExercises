@@ -17,29 +17,25 @@ export class MenuPageComponent implements OnInit ,OnDestroy{
   }
 
   ngOnInit() {
-    this.gettingArray();
-    // this.http.get<restaurantItem[]>('https://ng-restaurant-app-a4dac-default-rtdb.firebaseio.com/menu.json').subscribe( arr => {this.menuArray=arr;})
+    // this.gettingArray();
+    this.http.get<restaurantItem[]>('https://ng-restaurant-app-a4dac-default-rtdb.firebaseio.com/menu.json').subscribe( arr => {this.menuArray=arr;})
 
     // console.log(this.menuArray);
   }
-  menuArray:Array<restaurantItem>=[];
+  menuArray:Array<restaurantItem> = [];
 
 
   //This function gets an array from central service
-  gettingArray(){
-    this.menuArray=this.demoService.getDisplay();
-    // this.demoService.getPush(this.menuArray);
-    // this.demoService.sendArray(demoArray);
-    // this.menuArray.push(this.demoService.sendArray());
-    // console.log("The array is: "+this.demoService.sendArray());
-  }
+  // gettingArray(){
+  //   this.menuArray=this.demoService.getDisplay();
+  // }
 
 
   //This function removes item from the array
-  onRemoveFromMenu(objToRemove){
-    this.menuArray.splice(this.menuArray.findIndex(a => a.id === objToRemove.id) , 1);
+  onRemoveFromMenu(index){
+    this.menuArray.splice(index , 1);
+    this.demoService.setDisplay(this.menuArray);
     this.http.put(`https://ng-restaurant-app-a4dac-default-rtdb.firebaseio.com/menu.json`,this.menuArray).subscribe(it => { console.log(it); });
-
   }
 }
 

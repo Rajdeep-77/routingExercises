@@ -17,25 +17,19 @@ export interface restaurantItem{
 
 export class CentralServService {
 
-
-  
-  constructor(private http:HttpClient) { this.menuList.subscribe( arr => { this.menuItemArray =arr; })}
   itemSubject = new Subject<Array<restaurantItem>>() ;
-  menuList = new BehaviorSubject<Array<restaurantItem>>([]) ;
-  menuItemArray:restaurantItem[];
-
   arrayOfMenu:Array<restaurantItem> = [];
   arrayOfItems:restaurantItem[] = [];
-  serverNameArray=[]
-  // a:Array<object>
-
+  serverNameArray = [];
+  
+  constructor(private http:HttpClient) { 
+    this.http.get<restaurantItem[]>('https://ng-restaurant-app-a4dac-default-rtdb.firebaseio.com/menu.json').subscribe(arr => { this.arrayOfMenu =arr;});
+  }
   
 
   // This function sets an array of items from display that are added for menu
-  setDisplay(element: restaurantItem){
-    // this.arrayOfMenu.push(element);
-    this.arrayOfMenu.push(element);
-    // console.log("The element we got is: "+ JSON.stringify(element));
+  setDisplay(elementArray: restaurantItem[]){
+    this.arrayOfMenu = elementArray;
   }
 
   
@@ -65,13 +59,8 @@ export class CentralServService {
   
   // This function sets data in server
   setServerData(arrServer){
-    // this.http.delete('https://ng-restaurant-app-a4dac-default-rtdb.firebaseio.com/food.json');
-
-    // for(let i=0; i<=this.arrayOfItems.length; i++){
-      // const obj = this.arrayOfItems[i];
       this.http.put('https://ng-restaurant-app-a4dac-default-rtdb.firebaseio.com/food.json',arrServer, { headers: new HttpHeaders({'HeaderSettedDuring':'put'}) })
                .subscribe(response => { console.log(response);});
-    // }
     
   }
 
@@ -80,10 +69,6 @@ export class CentralServService {
   getServerData(){
     this.http.get<restaurantItem[]>('https://ng-restaurant-app-a4dac-default-rtdb.firebaseio.com/food.json')
              .pipe( map( (item) => { 
-                          // const tempArray =[];
-                          // for(const key in item){
-                            // if(item.hasOwnProperty(key)){ tempArray.push( { ...item[key] } ); } }
-                            // return tempArray;   }))
                             return item.map( it => { return {...it}; });   }),
                             tap( recipes => { this.setItemArray(recipes); }))
              .subscribe(tarr => { 
@@ -94,8 +79,6 @@ export class CentralServService {
                                     
                                       return false;
                                     }))
-                                  // this.arrayOfItems = tarr; 
-                                  // this.displayItem.detailArray = tarr; 
                                 } );
   }
 
@@ -103,10 +86,6 @@ export class CentralServService {
   onDeletePost(index){
     console.log(index);
     this.http.delete(`https://ng-restaurant-app-a4dac-default-rtdb.firebaseio.com/food/${index}.json`).subscribe();
-
-  // this.http.put( 'https://ng-restaurant-app-a4dac-default-rtdb.firebaseio.com/food.json', this.arrayOfItems).subscribe(response => {console.log(response);});
-
-    // firebase.database().ref().child('/food/'+id+'/').remove();
   }
 
 }

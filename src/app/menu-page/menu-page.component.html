@@ -6,7 +6,7 @@
     <h4> South Indian</h4>
     <p>-----</p>
     <ul>
-        <div *ngFor="let itm of menuArray">
+        <div *ngFor="let itm of menuArray; let i= index">
             <li  *ngIf="itm.category=='South Indian'">
                 <div  class="list-group-item clearfix" >
                     <div class="pull-left">
@@ -17,7 +17,7 @@
                         </span>
                         <p>{{ itm.category }}</p>
                         <p>{{ itm.price }} /- Rs only.</p>
-                        <button class="btn btn-danger" (click)="onRemoveFromMenu(itm)">Remove from menu</button>
+                        <button class="btn btn-danger" (click)="onRemoveFromMenu(i)">Remove from menu</button>
                     </div> 
                 </div>
             </li>
@@ -31,7 +31,7 @@
     <h4> Gujarati</h4>
     <p>-----</p>
     <ul>
-        <div *ngFor="let itm of menuArray">
+        <div *ngFor="let itm of menuArray; let i= index">
             <li  *ngIf="itm.category=='Gujarati'">
                 <div  class="list-group-item clearfix" >
                     <div class="pull-left">
@@ -42,7 +42,7 @@
                         </span>
                         <p>{{ itm.category }}</p>
                         <p>{{ itm.price }} /- Rs only.</p>
-                        <button class="btn btn-danger" (click)="onRemoveFromMenu(itm)">Remove from menu</button>
+                        <button class="btn btn-danger" (click)="onRemoveFromMenu(i)">Remove from menu</button>
                     </div> 
                 </div>
             </li>
@@ -56,7 +56,7 @@
     <h4> Punjabi</h4>
     <p>-----</p>
     <ul>
-        <div *ngFor="let itm of menuArray">
+        <div *ngFor="let itm of menuArray; let i= index">
             <li  *ngIf="itm.category=='Punjabi'">
                 <div  class="list-group-item clearfix" >
                     <div class="pull-left">
@@ -67,7 +67,7 @@
                         </span>
                         <p>{{ itm.category }}</p>
                         <p>{{ itm.price }} /- Rs only.</p>
-                        <button class="btn btn-danger" (click)="onRemoveFromMenu(itm)">Remove from menu</button>
+                        <button class="btn btn-danger" (click)="onRemoveFromMenu(i)">Remove from menu</button>
                     </div> 
                 </div>
             </li>
@@ -81,7 +81,7 @@
     <h4> Mexican</h4>
     <p>-----</p>
     <ul>
-        <div *ngFor="let itm of menuArray">
+        <div *ngFor="let itm of menuArray; let i= index">
             <li  *ngIf="itm.category=='Mexican'">
                 <div  class="list-group-item clearfix">
                     <div class="pull-left">
@@ -92,7 +92,7 @@
                         </span>
                         <p>{{ itm.category }}</p>
                         <p>{{ itm.price }} /- Rs only.</p>
-                        <button class="btn btn-danger" (click)="onRemoveFromMenu(itm)">Remove from menu</button>
+                        <button class="btn btn-danger" (click)="onRemoveFromMenu(i)">Remove from menu</button>
                     </div> 
                 </div>
             </li>

@@ -8,10 +8,10 @@ import { RestaurantComponent } from "./restaurant/restaurant.component";
 const theRoutes:Routes=[
     { path:'', redirectTo:'/form' , pathMatch:'full'},
     {path:'form', component:RestaurantComponent 
-    // ,children:[ { path:'display', component:DisplayItemComponent }]
+    // ,children:[ { path:':index', component:RestaurantComponent }]
     },
     {path:':index', component:RestaurantComponent },    
-    {path:'menu/Page', component:MenuPageComponent}
+    {path:'form/menu', component:MenuPageComponent}
 ];
 
 @NgModule({
