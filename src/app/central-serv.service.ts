@@ -16,16 +16,15 @@ export interface restaurantItem{
 @Injectable({ providedIn: 'root' })
 
 export class CentralServService {
-
-  itemSubject = new Subject<Array<restaurantItem>>() ;
-  arrayOfMenu:Array<restaurantItem> = [];
-  arrayOfItems:restaurantItem[] = [];
-  serverNameArray = [];
   
   constructor(private http:HttpClient) { 
-    this.http.get<restaurantItem[]>('https://ng-restaurant-app-a4dac-default-rtdb.firebaseio.com/menu.json').subscribe(arr => { this.arrayOfMenu =arr;});
+    this.http.get<restaurantItem[]>('https://ng-restaurant-app-a4dac-default-rtdb.firebaseio.com/menu.json').subscribe(arr => { this.arrayOfMenu = arr || []; });
   }
   
+  itemSubject = new Subject<Array<restaurantItem>>() ;
+  arrayOfMenu:restaurantItem[] = [];
+  arrayOfItems:restaurantItem[] = [];
+
 
   // This function sets an array of items from display that are added for menu
   setDisplay(elementArray: restaurantItem[]){
@@ -47,8 +46,8 @@ export class CentralServService {
         }
       
         return false;
-  })
-}
+    })
+  }
 
   
   // This function returns an array of items from restaurant component

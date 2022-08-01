@@ -17,19 +17,10 @@ export class MenuPageComponent implements OnInit ,OnDestroy{
   }
 
   ngOnInit() {
-    // this.gettingArray();
-    this.http.get<restaurantItem[]>('https://ng-restaurant-app-a4dac-default-rtdb.firebaseio.com/menu.json').subscribe( arr => {this.menuArray=arr;})
+    this.http.get<restaurantItem[]>('https://ng-restaurant-app-a4dac-default-rtdb.firebaseio.com/menu.json').subscribe( arr => {this.menuArray=arr;});
 
-    // console.log(this.menuArray);
   }
   menuArray:Array<restaurantItem> = [];
-
-
-  //This function gets an array from central service
-  // gettingArray(){
-  //   this.menuArray=this.demoService.getDisplay();
-  // }
-
 
   //This function removes item from the array
   onRemoveFromMenu(index){
